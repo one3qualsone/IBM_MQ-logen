@@ -13,12 +13,16 @@ cp .env.example .env
 ### 2. Get your Elasticsearch API Key
 
 In Kibana:
-1. Go to **Management** → **Stack Management** → **Security** → **API Keys**
+1. Go to **Management** / **Stack Management** / **Security** / **API Keys**
 2. Click **Create API key**
 3. Name it: `mq-demo-generator`
 4. Set privileges (or leave blank for full access)
 5. Copy the **Encoded** API key (base64 format)
 6. Paste into `.env` file as `ES_API_KEY`
+
+
+Run `./create_index.sh` to create the index required for generating logs.
+
 
 ### 3. Generate Historical Data (for ML training)
 
@@ -51,7 +55,7 @@ docker-compose up --build
 
 ## Switching Scenarios During Demo
 
-To trigger different anomaly scenarios during your demo:
+To trigger different anomaly scenarios during demo:
 
 1. Stop the container: `docker-compose down`
 2. Edit `.env` and change `CONTINUOUS_SCENARIO` to:
