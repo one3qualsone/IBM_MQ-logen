@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  mq-generator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mq-metrics-generator
+    env_file:
+      - .env
+    environment:
+      - ES_URL=${ES_URL}
+      - ES_API_KEY=${ES_API_KEY}
+      - INDEX_NAME=${INDEX_NAME:-metrics-mq-demo}
+      - MODE=${MODE:-backfill}
+      - BACKFILL_DAYS=${BACKFILL_DAYS:-30}
+      - BACKFILL_INTERVAL_MINUTES=${BACKFILL_INTERVAL_MINUTES:-1}
+      - CONTINUOUS_SCENARIO=${CONTINUOUS_SCENARIO:-normal}
+      - CONTINUOUS_INTERVAL_SECONDS=${CONTINUOUS_INTERVAL_SECONDS:-60}
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
